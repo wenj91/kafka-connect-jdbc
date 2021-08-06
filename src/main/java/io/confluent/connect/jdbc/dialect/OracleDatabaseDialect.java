@@ -167,7 +167,6 @@ public class OracleDatabaseDialect extends GenericDatabaseDialect {
     return super.maybeBindPrimitive(statement, index, schema, value);
   }
 
-  @SuppressWarnings("checkstyle:CyclomaticComplexity")
   @Override
   protected String getSqlType(SinkRecordField field) {
     if (field.schemaName() != null) {

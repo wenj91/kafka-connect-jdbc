@@ -49,6 +49,7 @@ import io.confluent.connect.jdbc.util.ColumnDefinition;
 import io.confluent.connect.jdbc.util.ColumnId;
 import io.confluent.connect.jdbc.util.TableId;
 import io.confluent.connect.jdbc.util.Version;
+import io.confluent.connect.jdbc.util.QueryMapUtil;
 
 /**
  * JdbcSourceTask is a Kafka Connect SourceTask implementation that reads from JDBC databases and
@@ -147,6 +148,9 @@ public class JdbcSourceTask extends SourceTask {
 
     String incrementingColumn
         = config.getString(JdbcSourceTaskConfig.INCREMENTING_COLUMN_NAME_CONFIG);
+    Map<String, String> incrementingTableColumnMapper = QueryMapUtil.getQueryParams(
+        config.getString(JdbcSourceTaskConfig.INCREMENTING_TABLE_COLUMN_MAPPER_CONFIG)
+    );
     List<String> timestampColumns
         = config.getList(JdbcSourceTaskConfig.TIMESTAMP_COLUMN_NAME_CONFIG);
     Long timestampDelayInterval
@@ -218,6 +222,7 @@ public class JdbcSourceTask extends SourceTask {
                 topicPrefix,
                 null,
                 incrementingColumn,
+                incrementingTableColumnMapper,
                 offset,
                 timestampDelayInterval,
                 timeZone,
@@ -247,6 +252,7 @@ public class JdbcSourceTask extends SourceTask {
                 topicPrefix,
                 timestampColumns,
                 incrementingColumn,
+                incrementingTableColumnMapper,
                 offset,
                 timestampDelayInterval,
                 timeZone,

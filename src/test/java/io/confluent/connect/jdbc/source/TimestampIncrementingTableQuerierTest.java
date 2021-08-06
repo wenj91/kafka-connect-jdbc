@@ -33,10 +33,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.eq;
@@ -96,6 +93,7 @@ public class TimestampIncrementingTableQuerierTest {
         "",
         timestampMode ? TIMESTAMP_COLUMNS : null,
         INCREMENTING_COLUMN,
+        new HashMap<>(),
         initialOffset.toMap(),
         10211197100L, // Timestamp delay
         TimeZone.getTimeZone("UTC"),

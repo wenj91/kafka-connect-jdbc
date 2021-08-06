@@ -23,6 +23,7 @@ import io.confluent.connect.jdbc.util.TableId;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -66,7 +67,8 @@ public class TableQuerierTest {
                                                     TABLE_NAME, 
                                                     null, 
                                                     null,
-                                                    INCREMENTING_COLUMN_NAME, 
+                                                    INCREMENTING_COLUMN_NAME,
+                                                    new HashMap<>(),
                                                     null,
                                                     TIMESTAMP_DELAY,
                                                     null,
@@ -86,7 +88,8 @@ public class TableQuerierTest {
                                                     QUERY, 
                                                     null, 
                                                     null, 
-                                                    INCREMENTING_COLUMN_NAME, 
+                                                    INCREMENTING_COLUMN_NAME,
+                                                    new HashMap<>(),
                                                     null, 
                                                     TIMESTAMP_DELAY, 
                                                     null, 

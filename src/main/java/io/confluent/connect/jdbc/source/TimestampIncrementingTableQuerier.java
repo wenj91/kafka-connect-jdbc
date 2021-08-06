@@ -71,6 +71,7 @@ public class TimestampIncrementingTableQuerier extends TableQuerier implements C
   protected final String topic;
   private final List<ColumnId> timestampColumns;
   private String incrementingColumnName;
+  private Map<String, String> incrementingTableColumnMapper;
   private final long timestampDelay;
   private final TimeZone timeZone;
 
@@ -78,10 +79,12 @@ public class TimestampIncrementingTableQuerier extends TableQuerier implements C
                                            String topicPrefix,
                                            List<String> timestampColumnNames,
                                            String incrementingColumnName,
+                                           Map<String, String> incrementingTableColumnMapper,
                                            Map<String, Object> offsetMap, Long timestampDelay,
                                            TimeZone timeZone, String suffix) {
     super(dialect, mode, name, topicPrefix, suffix);
     this.incrementingColumnName = incrementingColumnName;
+    this.incrementingTableColumnMapper = incrementingTableColumnMapper;
     this.timestampColumnNames = timestampColumnNames != null
         ? timestampColumnNames : Collections.emptyList();
     this.timestampDelay = timestampDelay;
@@ -124,6 +127,11 @@ public class TimestampIncrementingTableQuerier extends TableQuerier implements C
     ColumnId incrementingColumn = null;
     if (incrementingColumnName != null && !incrementingColumnName.isEmpty()) {
       incrementingColumn = new ColumnId(tableId, incrementingColumnName);
+    }
+
+    if (incrementingTableColumnMapper.containsKey(tableId.tableName())) {
+      incrementingColumn = new ColumnId(tableId,
+          incrementingTableColumnMapper.get(tableId.tableName()));
     }
 
     ExpressionBuilder builder = dialect.expressionBuilder();

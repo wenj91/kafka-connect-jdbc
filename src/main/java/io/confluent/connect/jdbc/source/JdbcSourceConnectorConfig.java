@@ -170,6 +170,11 @@ public class JdbcSourceConnectorConfig extends AbstractConfig {
   public static final String INCREMENTING_COLUMN_NAME_DEFAULT = "";
   private static final String INCREMENTING_COLUMN_NAME_DISPLAY = "Incrementing Column Name";
 
+  public static final String INCREMENTING_TABLE_COLUMN_MAPPER_CONFIG = "incrementing.table.column.mapper";
+  private static final String INCREMENTING_TABLE_COLUMN_MAPPER_DOC = "incrementing table column mapper";
+  public static final String INCREMENTING_TABLE_COLUMN_MAPPER_DEFAULT = "";
+  public static final String INCREMENTING_TABLE_COLUMN_MAPPER_DISPLAY = "Incrementing Table Column Mapper";
+
   public static final String TIMESTAMP_COLUMN_NAME_CONFIG = "timestamp.column.name";
   private static final String TIMESTAMP_COLUMN_NAME_DOC =
       "Comma separated list of one or more timestamp columns to detect new or modified rows using "
@@ -450,6 +455,7 @@ public class JdbcSourceConnectorConfig extends AbstractConfig {
   }
 
   private static final void addModeOptions(ConfigDef config) {
+    System.out.println("CCCCCCCCCCCCCCCCCCCCCCCC=>" + config.toString());
     int orderInGroup = 0;
     config.define(
         MODE_CONFIG,
@@ -483,6 +489,17 @@ public class JdbcSourceConnectorConfig extends AbstractConfig {
         ++orderInGroup,
         Width.MEDIUM,
         INCREMENTING_COLUMN_NAME_DISPLAY,
+        MODE_DEPENDENTS_RECOMMENDER
+    ).define(
+        INCREMENTING_TABLE_COLUMN_MAPPER_CONFIG,
+        Type.STRING,
+        INCREMENTING_TABLE_COLUMN_MAPPER_DEFAULT,
+        Importance.MEDIUM,
+        INCREMENTING_TABLE_COLUMN_MAPPER_DOC,
+        MODE_GROUP,
+        ++orderInGroup,
+        Width.MEDIUM,
+        INCREMENTING_TABLE_COLUMN_MAPPER_DISPLAY,
         MODE_DEPENDENTS_RECOMMENDER
     ).define(
         TIMESTAMP_COLUMN_NAME_CONFIG,
