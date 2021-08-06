@@ -16,6 +16,7 @@
 
 package io.confluent.connect.jdbc.source;
 
+import java.util.HashMap;
 import java.util.TimeZone;
 
 import org.apache.kafka.connect.data.Schema;
@@ -72,6 +73,7 @@ public class TimestampTableQuerier extends TimestampIncrementingTableQuerier {
         topicPrefix,
         timestampColumnNames,
         null,
+        new HashMap<>(),
         offsetMap,
         timestampDelay,
         timeZone,
